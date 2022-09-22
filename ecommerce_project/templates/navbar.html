@@ -1,0 +1,48 @@
+<div class="" style="width:100%;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark p-2">
+        <a class="navbar-brand white" href="#">JJJ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active white" href="{% url 'ecomapp:allproducts' %}" style="color:white;">Home </a>
+                </li>
+
+                <li class="nav-item dropdown {% if 'ecomapp' in request.path %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown"  aria-expanded="false">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:black;">
+
+                        <li><a class="dropdown-item white" href="{% url 'ecomapp:allproducts' %}">All Products</a></li>
+
+                        {% for cat in links %}
+                        <li><a class="dropdown-item white" href="{{cat.get_url}}">{{cat.name}} </a></li>
+                        {% endfor %}
+
+                    </ul>
+                </li>
+                {% if item_count > 0 %}
+                <li class="nav-item active">
+                    <a class="nav-link white" href="{% url 'cart:cartdetail' %}"> <i class="fa-solid fa-cart-shopping">(
+                        {{item_count}} )</i></a>
+                </li>
+                {% endif %}
+            </ul>
+
+            <form class=" form-edit form-inline my-2 my-lg-0" action="{% url 'search_app:SearchResult' %}"
+                  method="get">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2 " style='margin-left:30em;' type="search" placeholder="Search"
+                       aria-label="Search" name="q">
+                <button class="btn btn-outline-danger my-2 my-sm-0 white" style='margin-left:3em;background-color:red;' type="submit"><i
+                        class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+    </nav>
+</div>
